@@ -1,6 +1,6 @@
-const { Parser } = require("graphql/language/parser");
-const superagent = require("superagent");
-require("dotenv").config();
+const { Parser } = require('graphql/language/parser');
+const superagent = require('superagent');
+require('dotenv').config();
 
 
 
@@ -9,14 +9,14 @@ const {
 } = require('./config.js');
 
 let url;
-let turboSrcID
+let turboSrcID;
 
 (async () => {
   url = await getServiceEndpoint('turbosrc');
   turboSrcID = await getContributorAddress();
 })();
 
-console.log("requests to: ", turboSrcID);
+console.log('requests to: ', turboSrcID);
 
 //const port =
 //  process.env.NODE_ENV === "fly"
@@ -26,7 +26,7 @@ console.log("requests to: ", turboSrcID);
 var root = {
   postCreateRepoTestDB: async (owner, repo, defaultHash, contributor_id, side) => {
     superagent
-      .post("http://localhost:8081/graphql")
+      .post('http://localhost:8081/graphql')
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -34,11 +34,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ createRepo(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+          query: `{ createRepo(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json")
+      .set('accept', 'json')
       .end((err, res) => {
         // Calling the end function will send the request
       });
@@ -52,7 +52,7 @@ var root = {
     tokens
   ) => {
     superagent
-      .post("http://localhost:8081/graphql")
+      .post('http://localhost:8081/graphql')
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -60,11 +60,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ createTokenSupply(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", tokens: "${tokens}") }`,
+          query: `{ createTokenSupply(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", tokens: "${tokens}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json")
+      .set('accept', 'json')
       .end((err, res) => {
         // Calling the end function will send the request
       });
@@ -78,7 +78,7 @@ var root = {
     head
   ) => {
     superagent
-      .post("http://localhost:8081/graphql")
+      .post('http://localhost:8081/graphql')
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -86,11 +86,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ setTSrepoHead(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", head: "${head}") }`,
+          query: `{ setTSrepoHead(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", head: "${head}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json")
+      .set('accept', 'json')
       .end((err, res) => {
         // Calling the end function will send the request
       });
@@ -104,7 +104,7 @@ var root = {
     quorum
   ) => {
     superagent
-      .post("http://localhost:8081/graphql")
+      .post('http://localhost:8081/graphql')
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -112,11 +112,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ setQuorum(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", quorum: "${quorum}") }`,
+          query: `{ setQuorum(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", quorum: "${quorum}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json")
+      .set('accept', 'json')
       .end((err, res) => {
         // Calling the end function will send the request
       });
@@ -130,7 +130,7 @@ var root = {
     vote_status
   ) => {
     superagent
-      .post("http://localhost:8081/graphql")
+      .post('http://localhost:8081/graphql')
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -138,11 +138,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ newPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", vote_status: "${vote_status}") }`,
+          query: `{ newPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", vote_status: "${vote_status}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json")
+      .set('accept', 'json')
       .end((err, res) => {
         // Calling the end function will send the request
       });
@@ -158,9 +158,9 @@ var root = {
     const res = await superagent
       .post(url)
       .send({
-        query: `{ createUser(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}", token: "${token}") }`,
+        query: `{ createUser(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}", token: "${token}") }`
       })
-      .set("accept", "json");
+      .set('accept', 'json');
 
     const json = JSON.parse(res.text);
     return json.data.createUser;
@@ -175,15 +175,15 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ getContributorName(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`,
+          query: `{ getContributorName(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json");
+      .set('accept', 'json');
     //.end((err, res) => {
     // Calling the end function will send the request
     //});
-    console.log("gqlr 123");
+    console.log('gqlr 123');
     const json = JSON.parse(res.text);
     console.log(json);
     return json.data.getContributorName;
@@ -198,15 +198,15 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ getContributorID(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_name: "${contributor_name}") }`,
+          query: `{ getContributorID(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_name: "${contributor_name}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json");
+      .set('accept', 'json');
     //.end((err, res) => {
     // Calling the end function will send the request
     //});
-    console.log("gqlr 123");
+    console.log('gqlr 123');
     const json = JSON.parse(res.text);
     console.log(json);
     return json.data.getContributorID;
@@ -226,15 +226,15 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ getContributorSignature(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`,
+          query: `{ getContributorSignature(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json");
+      .set('accept', 'json');
     //.end((err, res) => {
     // Calling the end function will send the request
     //});
-    console.log("gqlr 145");
+    console.log('gqlr 145');
     const json = JSON.parse(res.text);
     return json.data.getContributorSignature;
   },
@@ -242,9 +242,9 @@ var root = {
     const res = await superagent
       .post(url)
       .send({
-        query: `{ createRepo(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") {status, repoName, repoID, repoSignature, message} }`,
+        query: `{ createRepo(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") {status, repoName, repoID, repoSignature, message} }`
       })
-      .set("accept", "json");
+      .set('accept', 'json');
 
     const json = JSON.parse(res.text);
     return json.data.createRepo;
@@ -253,9 +253,9 @@ var root = {
     const res = await superagent
       .post(url)
       .send({
-        query: `{ getUser(turboSrcID: "${turboSrcID}", contributor_id: "${contributor_id}") {contributor_name, contributor_id, contributor_signature, token}}`,
+        query: `{ getUser(turboSrcID: "${turboSrcID}", contributor_id: "${contributor_id}") {contributor_name, contributor_id, contributor_signature, token}}`
       })
-      .set("accept", "json");
+      .set('accept', 'json');
     const json = JSON.parse(res.text);
     return json.data.getUser;
   },
@@ -269,9 +269,9 @@ var root = {
     const res = await superagent
       .post(url)
       .send({
-        query: `{ findOrCreateUser(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}", token: "${token}") {contributor_name, contributor_id, contributor_signature, token}}`,
+        query: `{ findOrCreateUser(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}", token: "${token}") {contributor_name, contributor_id, contributor_signature, token}}`
       })
-      .set("accept", "json");
+      .set('accept', 'json');
     const json = JSON.parse(res.text);
     return json.data.findOrCreateUser;
   },
@@ -292,11 +292,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ getVotePowerAmount(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") { status, amount } }`,
+          query: `{ getVotePowerAmount(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") { status, amount } }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json");
+      .set('accept', 'json');
     //.end((err, res) => {
     // Calling the end function will send the request
     //});
@@ -314,11 +314,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ transferTokens(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: ${amount}, token: "${token}" ) {status, repo, to, from, id, network, createdAt, amount} }`,
+          query: `{ transferTokens(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: ${amount}, token: "${token}" ) {status, repo, to, from, id, network, createdAt, amount} }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json")
+      .set('accept', 'json')
       .end((err, res) => {
         // Calling the end function will send the request
       });
@@ -333,11 +333,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ newPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+          query: `{ newPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json")
+      .set('accept', 'json')
       .end((err, res) => {
         // Calling the end function will send the request
       });
@@ -352,11 +352,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-         query: `{ setVote(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", childDefaultHash: "${childDefaultHash}", mergeable: ${mergeable}, contributor_id: "${contributor_id}", side: "${side}", token: "${token}" ) }`,
+          query: `{ setVote(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", childDefaultHash: "${childDefaultHash}", mergeable: ${mergeable}, contributor_id: "${contributor_id}", side: "${side}", token: "${token}" ) }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json");
+      .set('accept', 'json');
     //   .end((err, res) => {
     //      Calling the end function will send the request
     //   });
@@ -369,7 +369,7 @@ var root = {
       .send({
         query: `{ getRepoStatus(turboSrcID: "${turboSrcID}", repo_id: "${repo_id}" ) { status, exists } }`
       })
-      .set("accept", "json");
+      .set('accept', 'json');
     //.end((err, res) => {
     // Calling the end function will send the request
     //});
@@ -380,25 +380,25 @@ var root = {
     return await superagent
       .post(url)
       .send({
-        query: `{ getAuthorizedContributor(turboSrcID: "${turboSrcID}", contributor_id: "${contributor_id}", repo_id: "${repo_id}") }`,
+        query: `{ getAuthorizedContributor(turboSrcID: "${turboSrcID}", contributor_id: "${contributor_id}", repo_id: "${repo_id}") }`
       })
-      .set("accept", "json");
+      .set('accept', 'json');
   },
   postPullFork: async (owner, repo, defaultHash, contributor_id) => {
     return await superagent
-      .post("http://localhost:4001/graphql")
+      .post('http://localhost:4001/graphql')
       .send({
-        query: `{ getPRfork(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`,
+        query: `{ getPRfork(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`
       }) // sends a JSON post body
-      .set("accept", "json");
+      .set('accept', 'json');
   },
   postGetPRforkStatus: async (owner, repo, defaultHash, contributor_id) => {
     const res = await superagent
       .post(url)
       .send({
-        query: `{ getPRforkStatus(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`,
+        query: `{ getPRforkStatus(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`
       }) // sends a JSON post body
-      .set("accept", "json");
+      .set('accept', 'json');
     //const resJSON = JSON.parseFromString(res.text)
     //console.log(resJSON)
     //return resJSON.data.getPRforkStatus
@@ -409,9 +409,9 @@ var root = {
     const res = await superagent
       .post(url)
       .send({
-        query: `{ getPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") { status, state, repo_id, fork_branch, defaultHash, childDefaultHash, mergeableCodeHost } }`,
+        query: `{ getPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") { status, state, repo_id, fork_branch, defaultHash, childDefaultHash, mergeableCodeHost } }`
       })
-      .set("accept", "json");
+      .set('accept', 'json');
     //.end((err, res) => {
     // Calling the end function will send the request
     //});
@@ -422,9 +422,9 @@ var root = {
     const res = await superagent
       .post(url)
       .send({
-        query: `{ getGitHubPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") { status, mergeable, mergeCommitSha, state, baseBranch } }`,
+        query: `{ getGitHubPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") { status, mergeable, mergeCommitSha, state, baseBranch } }`
       })
-      .set("accept", "json");
+      .set('accept', 'json');
     //.end((err, res) => {
     // Calling the end function will send the request
     //});
@@ -447,11 +447,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ getPRvoteTotals(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+          query: `{ getPRvoteTotals(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json");
+      .set('accept', 'json');
     //.end((err, res) => {
     // Calling the end function will send the request
     //});
@@ -469,11 +469,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ getPRvoteTotals(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+          query: `{ getPRvoteTotals(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json");
+      .set('accept', 'json');
     //.end((err, res) => {
     // Calling the end function will send the request
     //});
@@ -497,11 +497,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ getPRvoteYesTotals(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+          query: `{ getPRvoteYesTotals(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json");
+      .set('accept', 'json');
     //.end((err, res) => {
     // Calling the end function will send the request
     //});
@@ -525,11 +525,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ getPRvoteNoTotals(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+          query: `{ getPRvoteNoTotals(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json");
+      .set('accept', 'json');
     //.end((err, res) => {
     // Calling the end function will send the request
     //});
@@ -547,11 +547,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ closePullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+          query: `{ closePullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json")
+      .set('accept', 'json')
       .end((err, res) => {
         // Calling the end function will send the request
       });
@@ -566,11 +566,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ mergePullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+          query: `{ mergePullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json")
+      .set('accept', 'json')
       .end((err, res) => {
         // Calling the end function will send the request
       });
@@ -590,9 +590,9 @@ var root = {
     const res = await superagent
       .post(url)
       .send({
-        query: `{ createTsrcPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", childDefaultHash: "${childDefaultHash}", head: "${head}", branchDefaultHash: "${branchDefaultHash}", remoteURL: "${remoteURL}", baseBranch: "${baseBranch}"fork_branch: "${fork_branch}", title: "${title}") }`,
+        query: `{ createTsrcPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", childDefaultHash: "${childDefaultHash}", head: "${head}", branchDefaultHash: "${branchDefaultHash}", remoteURL: "${remoteURL}", baseBranch: "${baseBranch}"fork_branch: "${fork_branch}", title: "${title}") }`
       })
-      .set("accept", "json");
+      .set('accept', 'json');
 
     const json = JSON.parse(res.text);
     return json.data.createTsrcPullRequest;
@@ -609,7 +609,7 @@ var root = {
         { query: `{ fork(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", org: "${org}") }` }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json")
+      .set('accept', 'json')
       .end((err, res) => {
         // Calling the end function will send the request
       });
@@ -623,7 +623,7 @@ var root = {
     tokens
   ) => {
     superagent
-      .post("http://localhost:8081/graphql")
+      .post('http://localhost:8081/graphql')
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -631,11 +631,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ setContributorVotedTokens(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", tokens: "${tokens}") }`,
+          query: `{ setContributorVotedTokens(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", tokens: "${tokens}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json")
+      .set('accept', 'json')
       .end((err, res) => {
         // Calling the end function will send the request
       });
@@ -649,7 +649,7 @@ var root = {
     tokens
   ) => {
     superagent
-      .post("http://localhost:8081/graphql")
+      .post('http://localhost:8081/graphql')
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -657,11 +657,11 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ addToTotalVotedYesTokens(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", tokens: "${tokens}") }`,
+          query: `{ addToTotalVotedYesTokens(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", tokens: "${tokens}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
-      .set("accept", "json")
+      .set('accept', 'json')
       .end((err, res) => {
         // Calling the end function will send the request
       });
@@ -672,9 +672,9 @@ var root = {
     const res = await superagent
       .post(url)
       .send({
-        query: `{ findOrCreateNameSpaceRepo(repoName: "${repoName}", repoID: "${repoID}") {status, repoName, repoID, repoSignature, message}}`,
+        query: `{ findOrCreateNameSpaceRepo(repoName: "${repoName}", repoID: "${repoID}") {status, repoName, repoID, repoSignature, message}}`
       })
-      .set("accept", "json");
+      .set('accept', 'json');
     const json = JSON.parse(res.text);
     return json.data.findOrCreateNameSpaceRepo;
   },
@@ -683,12 +683,12 @@ var root = {
     const res = await superagent
       .post(url)
       .send({
-        query: `{ getNameSpaceRepo(repoNameOrID: "${repoNameOrID}") {status, repoName, repoID, repoSignature, message}}`,
+        query: `{ getNameSpaceRepo(repoNameOrID: "${repoNameOrID}") {status, repoName, repoID, repoSignature, message}}`
       })
-      .set("accept", "json");
+      .set('accept', 'json');
     const json = JSON.parse(res.text);
     return json.data.getNameSpaceRepo;
-  },
+  }
 };
 
 module.exports = root;
