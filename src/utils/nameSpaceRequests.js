@@ -146,30 +146,20 @@ var root = {
     return json.data.findOrCreateUser;
   },
   findOrCreateNameSpaceRepo: async (
-    repoName,
-    repoID) => {
+    contributor_id,
+    repo_name,
+    contributor_password) => {
     const endpoint = await getServiceEndpoint('namespace');
     const res = await superagent
       .post(endpoint)
       .send({
-        query: `{ findOrCreateRepo(repoName: "${repoName}", repoID: "${repoID}") {status, repoName, repoID, repoSignature, message}}`
+        query: `{ findOrCreateRepo(contributor_id: "${contributor_id}", repo_name: "${repo_name}", contributor_password: "${contributor_password}") {status, message, repoName, repoID, repoSignature}}`
       })
       .set('accept', 'json');
     const json = JSON.parse(res.text);
-    console.log('findorcreatenamespacerepo reqs json', json);
+    console.log('turbosrc-service/src/utils/nameSpaceRequests.js findOrCreateNameSpaceRepo', json.data.findOrCreateRepo)
+    //return json.data.findOrCreateNameSpaceRepo;
     return json.data.findOrCreateRepo;
-  },
-  getNameSpaceRepo: async (
-    repoNameOrID) => {
-    const endpoint = await getServiceEndpoint('namespace');
-    const res = await superagent
-      .post(endpoint)
-      .send({
-        query: `{ getRepo(repoNameOrID: "${repoNameOrID}") {status, repoName, repoID, repoSignature, message}}`
-      })
-      .set('accept', 'json');
-    const json = JSON.parse(res.text);
-    return json.data.getRepo;
   }
 };
 

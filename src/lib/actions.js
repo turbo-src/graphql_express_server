@@ -745,25 +745,23 @@ const root = {
   },
   createRepo: async (args) => {
     // Create a namespace entry for the new repo:
-    repoName = `${args.owner}/${args.repo}`;
     const resCreateNameSpaceRepo = await findOrCreateNameSpaceRepo(
-      repoName,
-      ''
+      args.contributor_id,
+      args.repo_name,
+      args.contributor_password
     );
-
+    
+    console.log('turbosrc-service/src/lib/actions createRepo resCreateNameSpaceRepo', resCreateNameSpaceRepo)
+  
     // Create the repo with the unique ID generated from namespace:
     const resCreateRepo = await postCreateRepo(
-      '',
       resCreateNameSpaceRepo.repoID,
-      args.defaultHash,
       args.contributor_id,
-      args.side
-      // args.head?
+      args.repo_name,
     );
 
-    //{"data":{"createRepo":{"status":201,"repoName":"7db9a/demo","repoID":"0x42d","repoSignature":"0x197e","message":"repo created"}}}
-
-
+    console.log('turbosrc-service/src/lib/actions createRepo resCreateRepo', resCreateRepo)
+  
     return resCreateNameSpaceRepo;
   },
   newPullRequest: async (database, pullRequestsDB, args) => {
@@ -834,7 +832,7 @@ const root = {
     return status;
   },
   findOrCreateNameSpaceRepo: async function (args) {
-    const res = await findOrCreateNameSpaceRepo(args.repoName, args.repoID);
+    const res = await findOrCreateNameSpaceRepo(args.contributor_id, args.repo_name, args.contributor_password);
     return res;
   },
   getNameSpaceRepo: async function (args) {

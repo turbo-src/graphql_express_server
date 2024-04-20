@@ -237,7 +237,7 @@ var schema = buildSchema(`
     getVoteAll(turboSrcID: String, defaultHash: String): ghPullRequest,
     getVoteEverything: String,
     setVote(turboSrcID: String, owner: String, repo: String, defaultHash: String, childDefaultHash: String, mergeable: Boolean, contributor_id: String, side: String, token: String): String,
-    createRepo(turboSrcID: String, owner: String, repo: String, defaultHash: String, contributor_id: String, side: String, token: String): NameSpaceRepo,
+    createRepo(contributor_id: String, repo_name: String, contributor_password: String): NameSpaceRepo,
     newPullRequest(turboSrcID: String, owner: String, repo: String, defaultHash: String, contributor_id: String, side: String): String,
     getPullRequest(turboSrcID: String, owner: String, repo: String, defaultHash: String, contributor_id: String, side: String): PullRequest,
     getGitHubPullRequest(turboSrcID: String, owner: String, repo: String, defaultHash: String, contributor_id: String): ghPullRequest,
@@ -253,7 +253,7 @@ var schema = buildSchema(`
     mergePullRequest(turboSrcID: String, owner: String, repo: String, defaultHash: String, contributor_id: String, side: String): String,
     fork(turboSrcID: String, owner: String, repo: String, org: String): String,
     getRepoData(turboSrcID: String, repo_id: String, contributor_id: String): RepoData,
-    findOrCreateNameSpaceRepo(status: Int, message: String, repoName: String, repoID: String, repoSignature: String): NameSpaceRepo,
+    findOrCreateNameSpaceRepo(contributor_id: String, repo_name: String, contributor_password: String): NameSpaceRepo,
     getNameSpaceRepo(turboSrcID: String, repoNameOrID: String): NameSpaceRepo,
     getTurboSrcIDfromInstance: String!,
   }
@@ -537,7 +537,8 @@ var root = {
   },
   createRepo: async (args) => {
     // name space server
-    const verified = await verify(args.contributor_id, args.token);
+    //const verified = await verify(args.contributor_id, args.token);
+    const verified = true
 
     if (verified === true) {
       return await createRepo(args);

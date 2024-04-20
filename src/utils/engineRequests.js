@@ -29,16 +29,17 @@ var root = {
         return json.data.createUser;
       });
   },
-  postCreateRepo: async (owner, repo, defaultHash, contributor_id, side) => {
+  postCreateRepo: async (repo_id, contributor_id, repo_name) => {
     const privateStore = await getServiceEndpoint('offchain');
     const res = await superagent
       .post(privateStore)
       .send({
-        query: `{ createRepo(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
+        query: `{ createRepo(repo_id: "${repo_id}", contributor_id: "${contributor_id}, "repo_name: "${repo_name}") }`
       })
       .set('accept', 'json');
 
     const json = JSON.parse(res.text);
+    console.log('turbosrc-service/src/utils/engineRequests postCreateRepo', json.data.createRepo);
     return json.data.createRepo;
   },
   postCreatePullRequest: async (

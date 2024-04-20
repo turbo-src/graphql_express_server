@@ -24,7 +24,7 @@ console.log('requests to: ', turboSrcID);
 //    : "http://localhost:4000";
 
 var root = {
-  postCreateRepoTestDB: async (owner, repo, defaultHash, contributor_id, side) => {
+  postCreateRepoTestDB: async (contributor_id, repo_name, contributor_password) => {
     superagent
       .post('http://localhost:8081/graphql')
       .send(
@@ -34,7 +34,7 @@ var root = {
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ createRepo(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
+		query: `{ createRepo(contributor_id: "${contributor_id}", repo_name: "${repo_name}", contributor_password: "${contributor_password}") }`
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
@@ -251,14 +251,16 @@ var root = {
     console.log(json);
     return json.data.getContributorSignature;
   },
-  postCreateRepo: async (owner, repo, defaultHash, contributor_id, side, token) => {
+  createRepo: async (
+    contributor_id,
+    repo_name,
+    contributor_password) => {
     const res = await superagent
       .post(url)
       .send({
-        query: `{ createRepo(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") {status, repoName, repoID, repoSignature, message} }`
+	      query: `{ createRepo(contributor_id: "${contributor_id}", repo_name: "${repo_name}", contributor_password: "${contributor_password}") {status, repoName, repoID, repoSignature, message}}`
       })
       .set('accept', 'json');
-
     const json = JSON.parse(res.text);
     return json.data.createRepo;
   },
@@ -714,12 +716,13 @@ var root = {
       });
   },
   findOrCreateNameSpaceRepo: async (
-    repoName,
-    repoID) => {
+    contributor_id,
+    repo_name,
+    contributor_password) => {
     const res = await superagent
       .post(url)
       .send({
-        query: `{ findOrCreateNameSpaceRepo(repoName: "${repoName}", repoID: "${repoID}") {status, repoName, repoID, repoSignature, message}}`
+	      query: `{ findOrCreateNameSpaceRepo(contributor_id: "${contributor_id}", repo_name: "${repo_name}", contributor_password: "${contributor_password}") {status, repoName, repoID, repoSignature, message}}`
       })
       .set('accept', 'json');
     const json = JSON.parse(res.text);
