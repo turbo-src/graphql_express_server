@@ -762,7 +762,7 @@ const root = {
 
     console.log('turbosrc-service/src/lib/actions createRepo resCreateRepo', resCreateRepo)
   
-    return resCreateNameSpaceRepo;
+    return resCreateRepo;
   },
   newPullRequest: async (database, pullRequestsDB, args) => {
     const prVoteStatus = module.exports.getPullRequest(database, args);
