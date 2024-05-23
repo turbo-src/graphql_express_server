@@ -750,19 +750,37 @@ const root = {
       args.repo_name,
       args.contributor_password
     );
-    
-    console.log('turbosrc-service/src/lib/actions createRepo resCreateNameSpaceRepo', resCreateNameSpaceRepo)
-  
+
+    console.log('turbosrc-service/src/lib/actions createRepo resCreateNameSpaceRepo', resCreateNameSpaceRepo);
+
     // Create the repo with the unique ID generated from namespace:
-    const resCreateRepo = await postCreateRepo(
+    const resCreateRepoFromEngine = await postCreateRepo(
       resCreateNameSpaceRepo.repoID,
       args.contributor_id,
       args.repo_name,
     );
 
-    console.log('turbosrc-service/src/lib/actions createRepo resCreateRepo', resCreateRepo)
-  
-    return resCreateRepo;
+    console.log('turbosrc-service/src/lib/actions createRepo resCreateRepoEngine', resCreateRepoFromEngine);
+    console.log('resCreateRepoFromEngine type', typeof(resCreateRepoFromEngine));
+
+    let engineStatusCode = resCreateRepoFromEngine;
+    let numEngineStatusCode = +engineStatusCode;
+    console.log(numEngineStatusCode); // e.g. 201 as an integer.
+
+    // Reconcile the status responses into a single response object
+    const finalStatus = (resCreateNameSpaceRepo.status === 201 && numEngineStatusCode === 201)
+      ? 201
+      : (resCreateNameSpaceRepo.status !== 201 ? resCreateNameSpaceRepo.status : numEngineStatusCode);
+
+    const reconciledResponse = {
+      ...resCreateNameSpaceRepo,
+      status: finalStatus,
+    };
+
+    console.log('reconciledResponse', reconciledResponse)
+
+    // Return the reconciled response
+    return reconciledResponse;
   },
   newPullRequest: async (database, pullRequestsDB, args) => {
     const prVoteStatus = module.exports.getPullRequest(database, args);
