@@ -254,7 +254,7 @@ var schema = buildSchema(`
     fork(turboSrcID: String, owner: String, repo: String, org: String): String,
     getRepoData(turboSrcID: String, repo_id: String, contributor_id: String): RepoData,
     findOrCreateNameSpaceRepo(contributor_id: String, repo_name: String, contributor_password: String): NameSpaceRepo,
-    getNameSpaceRepo(turboSrcID: String, repoNameOrID: String): NameSpaceRepo,
+    getNameSpaceRepo(repoNameOrID: String): NameSpaceRepo,
     getTurboSrcIDfromInstance: String!,
   }
 `);

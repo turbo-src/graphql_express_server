@@ -160,6 +160,27 @@ var root = {
     console.log('turbosrc-service/src/utils/nameSpaceRequests.js findOrCreateNameSpaceRepo', json.data.findOrCreateRepo)
     //return json.data.findOrCreateNameSpaceRepo;
     return json.data.findOrCreateRepo;
+  },
+  getNameSpaceRepo: async (repoNameOrID) => {
+    const endpoint = await getServiceEndpoint('namespace');
+    const res = await superagent
+      .post(endpoint)
+      .send({
+        query: `
+          {
+            getNameSpaceRepo(repoNameOrID: "${repoNameOrID}") {
+              status
+              message
+              repoName
+              repoID
+              repoSignature
+            }
+          }
+        `,
+      })
+      .set('accept', 'json');
+    const json = JSON.parse(res.text);
+    return json.data.getNameSpaceRepo;
   }
 };
 
