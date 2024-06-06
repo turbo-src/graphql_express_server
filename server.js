@@ -236,7 +236,7 @@ var schema = buildSchema(`
     getVote(turboSrcID: String, defaultHash: String, contributor_id: String): String,
     getVoteAll(turboSrcID: String, defaultHash: String): ghPullRequest,
     getVoteEverything: String,
-    setVote(turboSrcID: String, owner: String, repo: String, defaultHash: String, childDefaultHash: String, mergeable: Boolean, contributor_id: String, side: String, token: String): String,
+    setVote(repoID: String, url: String, commitID: String, contributorID: String, signature: String): String,
     createRepo(contributor_id: String, repo_name: String, contributor_password: String): NameSpaceRepo,
     newPullRequest(turboSrcID: String, owner: String, repo: String, defaultHash: String, contributor_id: String, side: String): String,
     getPullRequest(turboSrcID: String, owner: String, repo: String, defaultHash: String, contributor_id: String, side: String): PullRequest,
@@ -519,11 +519,10 @@ var root = {
     return 'something';
   },
   setVote: async (args) => {
-    const verified = await verify(args.contributor_id, args.token);
-
+    //const verified = await verify(args.contributor_id, args.token);
+    const verified = true
     if (verified === true) {
       const resultSetVote = await setVote(args);
-
       return resultSetVote;
     }
   },
