@@ -476,7 +476,7 @@ const root = {
     // - Send to ledger
     // - Store the vote information in the database
     // - Return the updated repository information or a success message
-    return args.repoID
+    return await postSetVote(args.repoID, args.url, args.commitID, args.contributorID, args.signature);
   },
   updatePullRequest: async function (database, args, tokens) {
     const defaultHash = args.defaultHash;

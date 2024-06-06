@@ -195,17 +195,14 @@ var root = {
     const json = JSON.parse(res.text);
     return json.data.transferTokens;
   },
-  postSetVote: async (owner, repo, defaultHash, childDefaultHash, mergeable, contributor_id, side) => {
+  postSetVote: async (repoID, url, commitID, contributorID, signature) => {
     const privateStore = await getServiceEndpoint('offchain');
     const res = await superagent
       .post(privateStore)
       .send({
-	      query: `{ setVote(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", childDefaultHash: "${childDefaultHash}", mergeable: ${mergeable}, contributor_id: "${contributor_id}", side: "${side}") }`
+        query: `{ setVote(repoID: "${repoID}", url: "${url}", commitID: "${commitID}", contributorID: "${contributorID}", signature: "${signature}") }`
       })
       .set('accept', 'json');
-    //   .end((err, res) => {
-    //      Calling the end function will send the request
-    //   });
     const json = JSON.parse(res.text);
     return json.data.setVote;
   },
